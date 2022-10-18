@@ -14,11 +14,11 @@ class Letrado(models.Model):
     fuero = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.nombre
+        return f"Nombre: {self.nombre} - Apellido {self.apellido} - Fuero {self.fuero}"
 
 
 class Jurisprudencia(models.Model):
-    titulo = models.CharField(max_length=30)
+    titulo = models.CharField(max_length=70)
     texto = models.CharField(max_length=1000)
     fecha = models.DateField(null=True)
 

@@ -5,6 +5,7 @@ from blog.views import (
     procesar_formulario_seccion,
     buscar,
     mostrar_inicio,
+    leer_letrado,
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("formulario-letrado/", procesar_formulario_letrado),
     path("buscar-articulo/", buscar),
     path("inicio/", mostrar_inicio),
+    path("leer-letrado/", leer_letrado),
 ]

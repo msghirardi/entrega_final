@@ -8,6 +8,7 @@ from blog.models import Jurisprudencia
 
 from blog.forms import JurisprudenciaForm, SeccionForm, LetradoForm
 
+
 # Create your views here.
 
 
@@ -62,3 +63,10 @@ def procesar_formulario_seccion(request):
     mi_formulario = SeccionForm()
     contexto = {"formulario": mi_formulario}
     return render(request, "blog/formulario-seccion.html", context=contexto)
+
+
+def leer_letrado(request):
+    #letrados = Letrado.objects.all()  
+    #contexto = {"letrados": letrados}
+    return render(request, "blog/leer_letrado.html")
+    #CORREGIR ACA
