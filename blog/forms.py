@@ -10,7 +10,7 @@ class JurisprudenciaForm(forms.Form):
 class LetradoForm(forms.Form):
     nombre = forms.CharField(max_length=30)
     apellido = forms.CharField(max_length=30)
-    profesion = forms.CharField(max_length=30)
+    fuero = forms.CharField(max_length=30)
 
 
 class SeccionForm(forms.Form):

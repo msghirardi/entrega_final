@@ -18,13 +18,16 @@ class Letrado(models.Model):
 
 
 class Jurisprudencia(models.Model):
+    class Meta:
+        verbose_name_plural = "Jurisprudencia"
+
     titulo = models.CharField(max_length=70)
     texto = models.CharField(max_length=1000)
     fecha = models.DateField(null=True)
 
 
 def __str__(self):
-    return self.titulo
+    return {self.titulo}
 
 
 class Seccion(models.Model):

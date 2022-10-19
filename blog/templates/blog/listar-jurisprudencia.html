@@ -1,0 +1,7 @@
+Acá voy a listar la Jurisprudencia/Fallos
+<br>
+<br>
+{% for jurisprudencia in jurisprudencia_encontrados %}
+{{ jurisprudencia.nombre }}  (texto: {{ jurisprudencia.texto }}
+{{ jurisprudencia.nombre }}  (fecha: {{ jurisprudencia.fecha }}  ) <br>
+{% endfor %}
