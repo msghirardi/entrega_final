@@ -18,13 +18,14 @@ urlpatterns = [
     path(
         "formulario-jurisprudencia/",
         procesar_formulario_jurisprudencia,
+        name="Ingresar Jurisprudencia",
     ),
-    path("formulario-seccion/", procesar_formulario_seccion),
-    path("formulario-letrado/", procesar_formulario_letrado),
-    path("buscar-jurisprudencia/", buscar),
-    path("inicio/", mostrar_inicio),
-    path("leer-letrado/", leer_letrado),
-    path("jurisprudencia-lista/", listar_jurisprudencia),
+    path("formulario-seccion/", procesar_formulario_seccion, name="Ingrese Seccion"),
+    path("formulario-letrado/", procesar_formulario_letrado, name="Ingrese Letrado"),
+    path("buscar-jurisprudencia/", buscar, name="Buscar Jurisprudencia"),
+    path("inicio/", mostrar_inicio, name="Inicio"),
+    path("leer-letrado/", leer_letrado, name="Ver Letrados"),
+    path("jurisprudencia-lista/", listar_jurisprudencia, name="Listar Jurisprudencia"),
     path(
         "jurisprudencia/list", JurisprudenciaList.as_view(), name="JurisprudenciaList"
     ),

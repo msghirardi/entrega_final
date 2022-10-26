@@ -78,7 +78,7 @@ def procesar_formulario_letrado(request):
             return render(request, "blog/exito.html")
 
         contexto = {"formulario": mi_formulario}
-        return render(request, "blog/formulario-jurisprudencia.html", contexto)
+        return render(request, "blog/formulario-letrados.html", contexto)
 
 
 def procesar_formulario_seccion(request):
