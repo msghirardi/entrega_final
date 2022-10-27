@@ -22,8 +22,11 @@ class Jurisprudencia(models.Model):
         verbose_name_plural = "Jurisprudencia"
 
     titulo = models.CharField(max_length=70)
-    texto = models.CharField(max_length=1000)
+    texto = models.CharField(max_length=100000)
     fecha = models.DateField(null=True)
+
+    def __str__(self):
+        return f"Titulo: {self.titulo} - Texto: {self.texto} - Fecha: {self.fecha}"
 
 
 def __str__(self):

@@ -7,6 +7,7 @@ from blog.views import (
     mostrar_inicio,
     leer_letrado,
     listar_jurisprudencia,
+    acerca_de_mi,
     JurisprudenciaDelete,
     JurisprudenciaDetalle,
     JurisprudenciaUpdateView,
@@ -25,7 +26,7 @@ urlpatterns = [
     path("buscar-jurisprudencia/", buscar, name="Buscar Jurisprudencia"),
     path("inicio/", mostrar_inicio, name="Inicio"),
     path("leer-letrado/", leer_letrado, name="Ver Letrados"),
-    path("jurisprudencia-lista/", listar_jurisprudencia, name="Listar Jurisprudencia"),
+    path("pages/", listar_jurisprudencia, name="Listar Jurisprudencia"),
     path(
         "jurisprudencia/list", JurisprudenciaList.as_view(), name="JurisprudenciaList"
     ),
@@ -41,4 +42,5 @@ urlpatterns = [
         "editar/<pk>", JurisprudenciaUpdateView.as_view(), name="JurisprudenciaUpdate"
     ),
     path("borrar/<pk>", JurisprudenciaDelete.as_view(), name="JurisprudenciaDelete"),
+    path("about/", acerca_de_mi, name="About"),
 ]

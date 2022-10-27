@@ -24,11 +24,14 @@
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'Ingrese Letrado' %}">Ingrese Letrado</a>
                 <a class="navbar-brand" href="{% url 'Ingresar Jurisprudencia' %}">Ingresar Jurisprudencia</a>
-                <a class="navbar-brand" href="{% url 'Ingrese Seccion' %}">Ingrese Seccion</a>
+                <a class="navbar-brand" href="{% url 'JurisprudenciaList' %}">Ver Jurisprudencia</a>
                 <a class="navbar-brand" href="{% url 'Ver Letrados' %}">Ver Letrados</a>
+                <a class="navbar-brand" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
                 <a class="btn btn-primary" href="#signup">Sign Up</a>
             </div>
         </nav>
+        {% block inserte_aqui_su_contenido %}
+        {% endblock %}
         <!-- Masthead-->
         <header class="masthead">
             <div class="container position-relative">
@@ -36,7 +39,8 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">¿Todavia no te registraste?</h1>
+                            <h1 class="mb-5">Bienvenido al blog del Jurista</h1>
+                            <h5 class="mb-5">Registrate aqui</h5>
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -84,27 +88,28 @@
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
-                            <h3>Fully Responsive</h3>
-                            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
+                            <h3>No dejes de actualizarte</h3>
+                            <p class="lead mb-0">El derecho cambia dia tras dia, mantente vigente</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
-                            <h3>Bootstrap 5 Ready</h3>
-                            <p class="lead mb-0">Featuring the latest build of the new Bootstrap 5 framework!</p>
+                            <h3>Comparte tus conocimientos</h3>
+                            <p class="lead mb-0">Cuentale a los colegas tus experiencias</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
-                            <h3>Easy to Use</h3>
-                            <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                            <h3>Suscribete</h3>
+                            <p class="lead mb-0">No dejes de estar al dia y recibe nuestras novedades</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        
         <!-- Image Showcases-->
         <section class="showcase">
             <div class="container-fluid p-0">
@@ -207,8 +212,7 @@
         </section>
 
 
-        {% block inserte_aqui_su_contenido %}
-        {% endblock %}
+
         
         
         <!-- Footer-->
@@ -217,7 +221,7 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item"><a href="{% url 'About' %}">Sobre Mi</a></li>
                             <li class="list-inline-item">⋅</li>
                             <li class="list-inline-item"><a href="#!">Contact</a></li>
                             <li class="list-inline-item">⋅</li>
@@ -230,13 +234,13 @@
                     <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                                <a href="https://www.facebook.com/"><i class="bi-facebook fs-3"></i></a>
                             </li>
                             <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                                <a href="https://twitter.com/home?lang=es"><i class="bi-twitter fs-3"></i></a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                                <a href="https://www.instagram.com/?__coig_restricted=1"><i class="bi-instagram fs-3"></i></a>
                             </li>
                         </ul>
                     </div>

@@ -1,9 +1,14 @@
-<h1>Jurisprudencia de Coder - Python </h1>
+{% extends "blog/madre.html" %}
+
+{% load static %}
+
+{% block inserte_aqui_su_contenido %}
+<h1>Fallos y Casos famosos </h1>
 <ul>
     {% for jurisprudencia in object_list %}
     
     <li>
-        <p>Nombre: {{ jurisprudencia.titulo }}</p>
+        <p>Fallo: {{ jurisprudencia.titulo }}</p>
         <p>
             <a href="{% url 'JurisprudenciaDetail' jurisprudencia.id %}">Ver jurisprudencia</a>
             <a href="{% url 'JurisprudenciaUpdate' jurisprudencia.id %}">Editar</a>
@@ -13,3 +18,5 @@
     </li>
     {% endfor %}
 </ul>
+
+{% endblock %}

@@ -33,6 +33,14 @@ def mostrar_inicio(request):
     return render(request, "blog/inicio.html")
 
 
+def acerca_de_mi(request):
+    return render(request, "blog/about.html")
+
+
+def volver_atras(request):
+    return render(request, "blog/volver.html")
+
+
 def procesar_formulario_jurisprudencia(request):
     if request.method == "GET":
         mi_formulario = JurisprudenciaForm()
@@ -118,7 +126,7 @@ from django.urls import reverse
 
 class JurisprudenciaCreacion(CreateView):
     model = Jurisprudencia
-    fields = ["nombre", "camada"]
+    fields = ["titulo", "texto"]
 
     def get_success_url(self):
         return reverse("JurisprudenciaList")
@@ -127,7 +135,7 @@ class JurisprudenciaCreacion(CreateView):
 class JurisprudenciaUpdateView(UpdateView):
     model = Jurisprudencia
     success_url = "/blog/jurisprudencia/list"
-    fields = ["nombre", "camada"]
+    fields = ["titulo", "fecha"]
 
 
 class JurisprudenciaDelete(DeleteView):

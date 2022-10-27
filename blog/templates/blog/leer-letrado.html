@@ -1,3 +1,8 @@
+
+{% extends "blog/madre.html" %}
+
+{% load static %}
+{% block inserte_aqui_su_contenido %}
 <body>
     {% for l in letrados %}
         <li>{{l}}</li>
@@ -8,3 +13,7 @@
       </p>
 </body>
 
+
+
+
+{% endblock %}
