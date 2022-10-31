@@ -12,6 +12,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 
@@ -114,6 +121,8 @@ def listar_jurisprudencia(request):
     todos_los_jurisprudencia = Jurisprudencia.objects.all()
     contexto = {"jurisprudencia_encontrados": todos_los_jurisprudencia}
     return render(request, "blog/listar-jurisprudencia.html", contexto)
+    
+
 
 
 class JurisprudenciaList(ListView):
@@ -146,3 +155,52 @@ class JurisprudenciaDelete(DeleteView):
 class JurisprudenciaDetalle(DetailView):
     model = Jurisprudencia
     template_name = "blog/jurisprudencia-detalle.html"
+
+class MyLogin(LoginView):
+    template_name = "blog/login.html"
+
+
+class MyLogout(LogoutView, LoginRequiredMixin):
+    template_name = "blog/logout.html"
+
+
+
+def mostrar_inicio(request):
+    return render(request, "blog/inicio.html")
+
+# Eto es lo que muestra la slide de CODER
+# Yo prefiero usar MyLogin
+def login_request(request):
+
+    if request.method == "GET":
+        form = AuthenticationForm()
+        return render(request, "blog/login.html", {"form": form})
+
+    form = AuthenticationForm(request, data=request.POST)
+
+    if not form.is_valid():
+        return render(request, "blog/inicio.html", {"mensaje": "Error: los datos ingresados no son correctos"})
+    else:
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            return render(request, "blog/inicio.html", {"mensaje": f"Bienvenido {username}"})
+        else:
+            return render(request, "blog/inicio.html", {"mensaje": "El usuario no existe en nuestra appliación"})
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            username_capturado = form.cleaned_data["username"]
+            form.save()
+
+            return render(request, "blog/inicio.html", {"mensaje": f"Usuario: {username_capturado}"})
+
+    else:
+        form = UserCreationForm()
+
+    return render(request, "blog/registro.html", {"form": form})

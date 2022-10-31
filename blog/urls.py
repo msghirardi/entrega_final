@@ -13,6 +13,11 @@ from blog.views import (
     JurisprudenciaUpdateView,
     JurisprudenciaList,
     JurisprudenciaCreacion,
+    MyLogin,
+    MyLogout,
+    mostrar_inicio,
+    register,
+    
 )
 
 urlpatterns = [
@@ -43,4 +48,10 @@ urlpatterns = [
     ),
     path("borrar/<pk>", JurisprudenciaDelete.as_view(), name="JurisprudenciaDelete"),
     path("about/", acerca_de_mi, name="About"),
+    path("inicio/", mostrar_inicio, name="Inicio"),
+    path("login/", MyLogin.as_view(), name="Login"),
+    path("logout/", MyLogout.as_view(), name="Logout"),
+   
+    path("register/", register, name="Register")
+    
 ]
