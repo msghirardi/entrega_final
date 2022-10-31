@@ -19,7 +19,7 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-light bg-light static-top">
+        <!-- <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'Ingrese Letrado' %}">Ingrese Letrado</a>
@@ -29,8 +29,38 @@
                 <a class="navbar-brand" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
                 <a class="btn btn-primary" href="{% url 'Register' %}">Sign Up</a>
             </div>
-        </nav>
-
+        </nav> -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'Inicio' %}">Inicio <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'Ingrese Letrado' %}">Ingrese Letrado</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'Ingresar Jurisprudencia' %}">Ingresar Jurisprudencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'JurisprudenciaList' %}">Ver Jurisprudencia</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Ver Letrados' %}">Ver Letrados</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
+                 
+                  
+                  
+              </ul>
+            </div>
+           
+          </nav>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container position-relative">
@@ -40,47 +70,21 @@
                             {% block inserte_aqui_su_contenido %}
                             {% endblock %}
                             <!-- Page heading-->
-                            <h1 class="mb-5">Bienvenido al blog del Jurista</h1>
-                            <h5 class="mb-5">Registrate aqui</h5>
-                            <!-- Signup form-->
-                            <!-- * * * * * * * * * * * * * * *-->
-                            <!-- * * SB Forms Contact Form * *-->
-                            <!-- * * * * * * * * * * * * * * *-->
-                            <!-- This form is pre-integrated with SB Forms.-->
-                            <!-- To make this form functional, sign up at-->
-                            <!-- https://startbootstrap.com/solution/contact-forms-->
-                            <!-- to get an API token!-->
-                            <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
-                                <!-- Email address input-->
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control form-control-lg" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required,email" />
-                                        <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:required">Email requerido</div>
-                                        <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:email">El Email ingresado no es valido.</div>
-                                    </div>
-                                    <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
-                                </div>
-                                <!-- Submit success message-->
-                                <!---->
-                                <!-- This is what your users will see when the form-->
-                                <!-- has successfully submitted-->
-                                <div class="d-none" id="submitSuccessMessage">
-                                    <div class="text-center mb-3">
-                                        <div class="fw-bolder">El registro fue exitoso!</div>
-                                        <p>To activate this form, sign up at</p>
-                                        <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                    </div>
-                                </div>
-                                <!-- Submit error message-->
-                                <!---->
-                                <!-- This is what your users will see when there is-->
-                                <!-- an error submitting the form-->
-                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <h2 class="mb-5">Bienvenido al blog del Jurista</h2>
+                            
+
+
+                                No tenes cuenta?
+                                <br>
+
+                            <a class="btn btn-primary" href="{% url 'Register' %}">Registrate</a>
+
+                            <br>
+                            <br>
+                            Ya tienes cuenta?
+                            <br>
+                            <a class="btn btn-primary" href="{% url 'Login' %}">Inicia sesion</a>
+
         </header>
         <!-- Icons Grid-->
         <section class="features-icons bg-light text-center">
