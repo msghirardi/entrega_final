@@ -3,6 +3,7 @@ from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render
 from blog.models import Jurisprudencia, Letrado, Seccion
+from django.urls import reverse
 
 from blog.forms import JurisprudenciaForm, SeccionForm, LetradoForm
 from django.views.generic import (
@@ -16,13 +17,15 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
+from blog.models import Avatar, Letrado
+from blog.forms import AvatarForm, UserEditionForm
 
 
 
 # Create your views here.
 
-
+@login_required
 def buscar(request):
     if request.method == "GET":
         return render(request, "blog/formulario-de-busqueda.html")
@@ -35,7 +38,7 @@ def buscar(request):
         contexto = {"resultados": resultados_de_busqueda}
         return render(request, "blog/resultado-de-busqueda.html", contexto)
 
-
+@login_required
 def mostrar_inicio(request):
     return render(request, "blog/inicio.html")
 
@@ -47,7 +50,7 @@ def acerca_de_mi(request):
 def volver_atras(request):
     return render(request, "blog/volver.html")
 
-
+@login_required
 def procesar_formulario_jurisprudencia(request):
     if request.method == "GET":
         mi_formulario = JurisprudenciaForm()
@@ -71,7 +74,7 @@ def procesar_formulario_jurisprudencia(request):
         contexto = {"formulario": mi_formulario}
         return render(request, "blog/formulario-jurisprudencia.html", contexto)
 
-
+@login_required
 def procesar_formulario_letrado(request):
     if request.method == "GET":
         mi_formulario = LetradoForm()
@@ -95,7 +98,7 @@ def procesar_formulario_letrado(request):
         contexto = {"formulario": mi_formulario}
         return render(request, "blog/formulario-letrados.html", contexto)
 
-
+@login_required
 def procesar_formulario_seccion(request):
     mi_formulario = SeccionForm()
     contexto = {"formulario": mi_formulario}
@@ -107,7 +110,7 @@ def leer_letrado(request):
     contexto = {"letrados": letrados}
     return render(request, "blog/leer-letrado.html", contexto)
 
-
+@login_required
 def eliminar_letrado(request, letrado_nombre):
     letrado = Letrado.objetcs.get(nombre=letrado_nombre)
     letrado.delete()
@@ -116,7 +119,7 @@ def eliminar_letrado(request, letrado_nombre):
     contexto = {"letrados": letrados}
     return render(request, "blog/leer-letrado.html", contexto)
 
-
+@login_required
 def listar_jurisprudencia(request):
     todos_los_jurisprudencia = Jurisprudencia.objects.all()
     contexto = {"jurisprudencia_encontrados": todos_los_jurisprudencia}
@@ -124,16 +127,14 @@ def listar_jurisprudencia(request):
     
 
 
-
-class JurisprudenciaList(ListView):
+# EL LOGIN REQUIRED MIXIN
+class JurisprudenciaList(ListView, LoginRequiredMixin):
     model = Jurisprudencia
     template_name = "blog/jurisprudencia-list.html"
 
 
-from django.urls import reverse
 
-
-class JurisprudenciaCreacion(CreateView):
+class JurisprudenciaCreacion(LoginRequiredMixin, CreateView):
     model = Jurisprudencia
     fields = ["titulo", "texto"]
 
@@ -141,18 +142,18 @@ class JurisprudenciaCreacion(CreateView):
         return reverse("JurisprudenciaList")
 
 
-class JurisprudenciaUpdateView(UpdateView):
+class JurisprudenciaUpdateView(LoginRequiredMixin, UpdateView):
     model = Jurisprudencia
     success_url = "/blog/jurisprudencia/list"
     fields = ["titulo", "fecha"]
 
 
-class JurisprudenciaDelete(DeleteView):
+class JurisprudenciaDelete(LoginRequiredMixin, DeleteView):
     model = Jurisprudencia
     success_url = "/blog/jurisprudencia/list"
 
 
-class JurisprudenciaDetalle(DetailView):
+class JurisprudenciaDetalle(LoginRequiredMixin, DetailView):
     model = Jurisprudencia
     template_name = "blog/jurisprudencia-detalle.html"
 
@@ -160,7 +161,7 @@ class MyLogin(LoginView):
     template_name = "blog/login.html"
 
 
-class MyLogout(LogoutView, LoginRequiredMixin):
+class MyLogout(LoginRequiredMixin, LogoutView):
     template_name = "blog/logout.html"
 
 
@@ -204,3 +205,45 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, "blog/registro.html", {"form": form})
+
+
+# VER ESTO!!!!!
+
+@login_required
+def editar_perfil(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
+    if request.method != "POST":
+        form = UserEditionForm(initial={"email": user.email})
+    else:
+        form = UserEditionForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user.email = data["email"]
+            user.first_name = data["first_name"]
+            user.last_name = data["last_name"]
+            user.set_password(data["password1"])
+            user.save()
+            return render(request, "blog/inicio.html", {"avatar": avatar.imagen.url})
+ 
+    contexto = {
+        "user": user,
+        "form": form,
+        "avatar": avatar.imagen.url
+    }
+    return render(request, "blog/editarPerfil.html", contexto)
+
+
+@login_required
+def agregar_avatar(request):
+    if request.method != "POST":
+        form = AvatarForm()
+    else:
+        form = AvatarForm(request.POST, request.FILES)
+        if form.is_valid():
+            Avatar.objects.filter(user=request.user).delete()
+            form.save()
+            return render(request, "blog/inicio.html")
+
+    contexto = {"form": form}
+    return render(request, "blog/avatar_form.html", contexto)

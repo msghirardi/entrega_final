@@ -17,7 +17,8 @@ from blog.views import (
     MyLogout,
     mostrar_inicio,
     register,
-    
+    editar_perfil,
+    agregar_avatar,
 )
 
 urlpatterns = [
@@ -51,7 +52,10 @@ urlpatterns = [
     path("inicio/", mostrar_inicio, name="Inicio"),
     path("login/", MyLogin.as_view(), name="Login"),
     path("logout/", MyLogout.as_view(), name="Logout"),
-   
-    path("register/", register, name="Register")
+    path("register/", register, name="Register"),
+    path("jurisprudencia/<pk>'", JurisprudenciaDetalle.as_view(), name="jurisprudenciaDetail"),
+    path("editar-perfil/", editar_perfil, name="EditarPerfil"),
+    path("agregar-avatar/", agregar_avatar, name="AgregarAvatar"),
+    path("", mostrar_inicio),
     
 ]

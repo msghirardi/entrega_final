@@ -54,6 +54,12 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
+                    {% if request.user.is_authenticated %}
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Logout' %}">Log Out</a>
+                  </li>   
+                {% endif %}
                  
                   
                   
@@ -81,10 +87,11 @@
 
                             <br>
                             <br>
+                            {% if not request.user.is_authenticated %}
                             Ya tienes cuenta?
-                            <br>
+                            <br>  
                             <a class="btn btn-primary" href="{% url 'Login' %}">Inicia sesion</a>
-
+                            {% endif %}
         </header>
         <!-- Icons Grid-->
         <section class="features-icons bg-light text-center">

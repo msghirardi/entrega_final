@@ -129,4 +129,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #Redireccion luego de inicio de sesion
 
 LOGIN_REDIRECT_URL = '/blog/inicio' # URL redirecting after a successful authentication
-LOGIN_URL = "/blog/login/"
+LOGIN_URL = "/blog/login/" 
+LOGOUT_REDIRECT_URL = LOGIN_URL
+
+import os
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
