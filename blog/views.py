@@ -22,8 +22,8 @@ from blog.models import Avatar, Letrado
 from blog.forms import AvatarForm, UserEditionForm
 
 
-
 # Create your views here.
+
 
 @login_required
 def buscar(request):
@@ -38,9 +38,16 @@ def buscar(request):
         contexto = {"resultados": resultados_de_busqueda}
         return render(request, "blog/resultado-de-busqueda.html", contexto)
 
+
 @login_required
 def mostrar_inicio(request):
-    return render(request, "blog/inicio.html")
+    avatar = Avatar.objects.filter(user=request.user).first()
+    if avatar is not None:
+        contexto = {"avatar": avatar.imagen.url}
+    else:
+        contexto = {}
+
+    return render(request, "blog/inicio.html", contexto)
 
 
 def acerca_de_mi(request):
@@ -50,11 +57,14 @@ def acerca_de_mi(request):
 def volver_atras(request):
     return render(request, "blog/volver.html")
 
+
 @login_required
 def procesar_formulario_jurisprudencia(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
     if request.method == "GET":
         mi_formulario = JurisprudenciaForm()
-        contexto = {"formulario": mi_formulario}
+        contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
         return render(request, "blog/formulario-jurisprudencia.html", contexto)
 
     if request.method == "POST":
@@ -74,11 +84,14 @@ def procesar_formulario_jurisprudencia(request):
         contexto = {"formulario": mi_formulario}
         return render(request, "blog/formulario-jurisprudencia.html", contexto)
 
+
 @login_required
 def procesar_formulario_letrado(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
     if request.method == "GET":
         mi_formulario = LetradoForm()
-        contexto = {"formulario": mi_formulario}
+        contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
         return render(request, "blog/formulario-letrados.html", contexto)
 
     if request.method == "POST":
@@ -98,40 +111,51 @@ def procesar_formulario_letrado(request):
         contexto = {"formulario": mi_formulario}
         return render(request, "blog/formulario-letrados.html", contexto)
 
+
 @login_required
 def procesar_formulario_seccion(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
     mi_formulario = SeccionForm()
-    contexto = {"formulario": mi_formulario}
+    contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
     return render(request, "blog/formulario-seccion.html", contexto)
 
 
 def leer_letrado(request):
     letrados = Letrado.objects.all()
-    contexto = {"letrados": letrados}
+    avatar = Avatar.objects.filter(user=request.user).first()
+    contexto = {"letrados": letrados, "avatar": avatar.imagen.url}
     return render(request, "blog/leer-letrado.html", contexto)
+
 
 @login_required
 def eliminar_letrado(request, letrado_nombre):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
     letrado = Letrado.objetcs.get(nombre=letrado_nombre)
     letrado.delete()
     # Vuelvo al menu
     letrados = Letrado.objects.all()
-    contexto = {"letrados": letrados}
+    contexto = {"letrados": letrados, "avatar": avatar.imagen.url}
     return render(request, "blog/leer-letrado.html", contexto)
+
 
 @login_required
 def listar_jurisprudencia(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=request.user).first()
     todos_los_jurisprudencia = Jurisprudencia.objects.all()
-    contexto = {"jurisprudencia_encontrados": todos_los_jurisprudencia}
+    contexto = {
+        "jurisprudencia_encontrados": todos_los_jurisprudencia,
+        "avatar": avatar.imagen.url,
+    }
     return render(request, "blog/listar-jurisprudencia.html", contexto)
-    
 
 
 # EL LOGIN REQUIRED MIXIN
 class JurisprudenciaList(ListView, LoginRequiredMixin):
     model = Jurisprudencia
     template_name = "blog/jurisprudencia-list.html"
-
 
 
 class JurisprudenciaCreacion(LoginRequiredMixin, CreateView):
@@ -157,6 +181,7 @@ class JurisprudenciaDetalle(LoginRequiredMixin, DetailView):
     model = Jurisprudencia
     template_name = "blog/jurisprudencia-detalle.html"
 
+
 class MyLogin(LoginView):
     template_name = "blog/login.html"
 
@@ -165,9 +190,9 @@ class MyLogout(LoginRequiredMixin, LogoutView):
     template_name = "blog/logout.html"
 
 
-
 def mostrar_inicio(request):
     return render(request, "blog/inicio.html")
+
 
 # Eto es lo que muestra la slide de CODER
 # Yo prefiero usar MyLogin
@@ -180,16 +205,26 @@ def login_request(request):
     form = AuthenticationForm(request, data=request.POST)
 
     if not form.is_valid():
-        return render(request, "blog/inicio.html", {"mensaje": "Error: los datos ingresados no son correctos"})
+        return render(
+            request,
+            "blog/inicio.html",
+            {"mensaje": "Error: los datos ingresados no son correctos"},
+        )
     else:
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
 
         user = authenticate(username=username, password=password)
         if user is not None:
-            return render(request, "blog/inicio.html", {"mensaje": f"Bienvenido {username}"})
+            return render(
+                request, "blog/inicio.html", {"mensaje": f"Bienvenido {username}"}
+            )
         else:
-            return render(request, "blog/inicio.html", {"mensaje": "El usuario no existe en nuestra appliación"})
+            return render(
+                request,
+                "blog/inicio.html",
+                {"mensaje": "El usuario no existe en nuestra appliación"},
+            )
 
 
 def register(request):
@@ -199,7 +234,11 @@ def register(request):
             username_capturado = form.cleaned_data["username"]
             form.save()
 
-            return render(request, "blog/inicio.html", {"mensaje": f"Usuario: {username_capturado}"})
+            return render(
+                request,
+                "blog/inicio.html",
+                {"mensaje": f"Usuario: {username_capturado}"},
+            )
 
     else:
         form = UserCreationForm()
@@ -208,6 +247,7 @@ def register(request):
 
 
 # VER ESTO!!!!!
+
 
 @login_required
 def editar_perfil(request):
@@ -225,12 +265,8 @@ def editar_perfil(request):
             user.set_password(data["password1"])
             user.save()
             return render(request, "blog/inicio.html", {"avatar": avatar.imagen.url})
- 
-    contexto = {
-        "user": user,
-        "form": form,
-        "avatar": avatar.imagen.url
-    }
+
+    contexto = {"user": user, "form": form, "avatar": avatar.imagen.url}
     return render(request, "blog/editarPerfil.html", contexto)
 
 

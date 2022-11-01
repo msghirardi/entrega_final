@@ -25,6 +25,7 @@ class AvatarForm(forms.ModelForm):
         model = Avatar
         fields = ["imagen", "user"]
 
+
 class JurisprudenciaForm(forms.Form):
     titulo = forms.CharField(max_length=30)
     texto = forms.CharField(max_length=1000)

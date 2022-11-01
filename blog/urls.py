@@ -53,9 +53,12 @@ urlpatterns = [
     path("login/", MyLogin.as_view(), name="Login"),
     path("logout/", MyLogout.as_view(), name="Logout"),
     path("register/", register, name="Register"),
-    path("jurisprudencia/<pk>'", JurisprudenciaDetalle.as_view(), name="jurisprudenciaDetail"),
+    path(
+        "jurisprudencia/<pk>'",
+        JurisprudenciaDetalle.as_view(),
+        name="jurisprudenciaDetail",
+    ),
     path("editar-perfil/", editar_perfil, name="EditarPerfil"),
     path("agregar-avatar/", agregar_avatar, name="AgregarAvatar"),
     path("", mostrar_inicio),
-    
 ]
