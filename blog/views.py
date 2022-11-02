@@ -123,8 +123,10 @@ def procesar_formulario_seccion(request):
 
 def leer_letrado(request):
     letrados = Letrado.objects.all()
-    avatar = Avatar.objects.filter(user=request.user).first()
-    contexto = {"letrados": letrados, "avatar": avatar.imagen.url}
+    # avatar = Avatar.objects.filter(user=request.user).first()
+    contexto = {
+        "letrados": letrados,
+    }
     return render(request, "blog/leer-letrado.html", contexto)
 
 
