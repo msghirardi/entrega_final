@@ -182,13 +182,13 @@ class JurisprudenciaCreacion(LoginRequiredMixin, CreateView):
 
 class JurisprudenciaUpdateView(LoginRequiredMixin, UpdateView):
     model = Jurisprudencia
-    success_url = "/blog/jurisprudencia/list"
+    success_url = "/blog/pages"
     fields = ["titulo", "fecha"]
 
 
 class JurisprudenciaDelete(LoginRequiredMixin, DeleteView):
     model = Jurisprudencia
-    success_url = "/blog/jurisprudencia/list"
+    success_url = "/blog/pages"
 
 
 class JurisprudenciaDetalle(LoginRequiredMixin, DetailView):

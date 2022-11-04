@@ -57,8 +57,8 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
+                  </li>
 
-                    
 
                 {% if request.user.is_authenticated %}
                   {% if avatar %}
@@ -92,6 +92,7 @@
                             {% block inserte_aqui_su_contenido %}
                             {% endblock %}
                             <!-- Page heading-->
+                            
                             <h2 class="mb-5">Bienvenido al blog del Jurista</h2>
                             
 
