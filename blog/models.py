@@ -1,4 +1,3 @@
-from unittest.util import _MAX_LENGTH
 from urllib import request
 from django.db import models
 from django.contrib.auth.models import User
@@ -36,9 +35,13 @@ def __str__(self):
 
 class Seccion(models.Model):
     class Meta:
-        verbose_name_plural = "Secciones"
+        verbose_name_plural = "Consejos"
 
     nombre = models.CharField(max_length=30)
+    consejo = models.CharField(max_length=140)
+
+    def __str__(self):
+        return self.consejo
 
 
 class Avatar(models.Model):

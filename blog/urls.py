@@ -27,7 +27,7 @@ urlpatterns = [
         procesar_formulario_jurisprudencia,
         name="Ingresar Jurisprudencia",
     ),
-    path("formulario-seccion/", procesar_formulario_seccion, name="Ingrese Seccion"),
+    path("formulario-consejo/", procesar_formulario_seccion, name="Ingrese Seccion"),
     path("formulario-letrado/", procesar_formulario_letrado, name="Ingrese Letrado"),
     path("buscar-jurisprudencia/", buscar, name="Buscar Jurisprudencia"),
     path("inicio/", mostrar_inicio, name="Inicio"),

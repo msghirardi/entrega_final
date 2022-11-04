@@ -40,3 +40,4 @@ class LetradoForm(forms.Form):
 
 class SeccionForm(forms.Form):
     titulo = forms.CharField(max_length=30)
+    consejo = forms.CharField(max_length=140)
