@@ -32,10 +32,8 @@ urlpatterns = [
     path("buscar-jurisprudencia/", buscar, name="Buscar Jurisprudencia"),
     path("inicio/", mostrar_inicio, name="Inicio"),
     path("leer-letrado/", leer_letrado, name="Ver Letrados"),
-    path("pages/", listar_jurisprudencia, name="Listar Jurisprudencia"),
-    path(
-        "jurisprudencia/list", JurisprudenciaList.as_view(), name="JurisprudenciaList"
-    ),
+    path("listar-jurisprudencia", listar_jurisprudencia, name="Listar Jurisprudencia"),
+    path("pages/", JurisprudenciaList.as_view(), name="JurisprudenciaList"),
     path(
         "r'(?P<pk>\d+)^$'", JurisprudenciaDetalle.as_view(), name="JurisprudenciaDetail"
     ),

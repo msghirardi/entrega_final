@@ -62,9 +62,13 @@ def volver_atras(request):
 def procesar_formulario_jurisprudencia(request):
     user = request.user
     avatar = Avatar.objects.filter(user=request.user).first()
+    if not avatar:
+        url = None
+    else:
+        url = avatar.imagen.url
     if request.method == "GET":
         mi_formulario = JurisprudenciaForm()
-        contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
+        contexto = {"formulario": mi_formulario, "avatar": url}
         return render(request, "blog/formulario-jurisprudencia.html", contexto)
 
     if request.method == "POST":
@@ -87,11 +91,14 @@ def procesar_formulario_jurisprudencia(request):
 
 @login_required
 def procesar_formulario_letrado(request):
-    user = request.user
     avatar = Avatar.objects.filter(user=request.user).first()
+    if not avatar:
+        url = None
+    else:
+        url = avatar.imagen.url
     if request.method == "GET":
         mi_formulario = LetradoForm()
-        contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
+        contexto = {"formulario": mi_formulario, "avatar": url}
         return render(request, "blog/formulario-letrados.html", contexto)
 
     if request.method == "POST":
@@ -116,17 +123,23 @@ def procesar_formulario_letrado(request):
 def procesar_formulario_seccion(request):
     user = request.user
     avatar = Avatar.objects.filter(user=request.user).first()
+    if not avatar:
+        url = None
+    else:
+        url = avatar.imagen.url
     mi_formulario = SeccionForm()
-    contexto = {"formulario": mi_formulario, "avatar": avatar.imagen.url}
+    contexto = {"formulario": mi_formulario, "avatar": url}
     return render(request, "blog/formulario-seccion.html", contexto)
 
 
 def leer_letrado(request):
     letrados = Letrado.objects.all()
-    # avatar = Avatar.objects.filter(user=request.user).first()
-    contexto = {
-        "letrados": letrados,
-    }
+    avatar = Avatar.objects.filter(user=request.user).first()
+    if not avatar:
+        url = None
+    else:
+        url = avatar.imagen.url
+    contexto = {"letrados": letrados, "avatar": url}
     return render(request, "blog/leer-letrado.html", contexto)
 
 
@@ -146,10 +159,14 @@ def eliminar_letrado(request, letrado_nombre):
 def listar_jurisprudencia(request):
     user = request.user
     avatar = Avatar.objects.filter(user=request.user).first()
+    if not avatar:
+        url = None
+    else:
+        url = avatar.imagen.url
     todos_los_jurisprudencia = Jurisprudencia.objects.all()
     contexto = {
         "jurisprudencia_encontrados": todos_los_jurisprudencia,
-        "avatar": avatar.imagen.url,
+        "avatar": url,
     }
     return render(request, "blog/listar-jurisprudencia.html", contexto)
 
@@ -193,10 +210,12 @@ class MyLogout(LoginRequiredMixin, LogoutView):
 
 
 def mostrar_inicio(request):
-    return render(request, "blog/inicio.html")
+    return render(
+        request,
+        "blog/inicio.html",
+    )
 
 
-# Eto es lo que muestra la slide de CODER
 # Yo prefiero usar MyLogin
 def login_request(request):
 
@@ -246,9 +265,6 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, "blog/registro.html", {"form": form})
-
-
-# VER ESTO!!!!!
 
 
 @login_required

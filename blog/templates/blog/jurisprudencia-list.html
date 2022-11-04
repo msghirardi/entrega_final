@@ -4,6 +4,7 @@
 
 {% block inserte_aqui_su_contenido %}
 <h1>Fallos y Casos famosos </h1>
+{% if object_list %}
 <ul>
     {% for jurisprudencia in object_list %}
     
@@ -18,5 +19,7 @@
     </li>
     {% endfor %}
 </ul>
-
+{% else %}
+<h3>No hay Jurisprudencia aún!</h3>
+{% endif %}
 {% endblock %}

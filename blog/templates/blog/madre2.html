@@ -57,21 +57,18 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'Listar Jurisprudencia' %}">Listar Jurisprudencia</a>
                     {% if request.user.is_authenticated %}
-              
-                  <li class="nav-item">
-                    
-                  <a href="{% url 'AgregarAvatar' %}">Agregar Avatar</a>
-                    </li>
                   {% if avatar %}
-                      <img height="40px" src="{{ avatar }}"/>
+                      <li><img height="40px" src="{{ avatar }}"/></li>  
                   {% endif %}
                   Hola, {{ user.username }}!
-                </li>
+                  <br>
+                  <li> <a class="nav-link" style="color:red; font-weight: arial;" href="{% url 'AgregarAvatar' %}">Agregar Avatar</a> <li>
+                  </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'Logout' %}">Log Out</a>
                 </li>  
                 {% endif %}
-                 
+          
                   
                   
                   
